@@ -82,10 +82,3 @@ $ ./gunzip -c big.txt && gzip -d -c big.txt.gz | cmp - big.txt                  
 - 压缩端不写 FNAME/mtime 等头字段(FLG=0),解压端对 FEXTRA/FNAME/
   FCOMMENT/FHCRC 均可读。
 - stored 块 > 65535 字节时自动拆成多个 stored 块(规范上限)。
-
-## 验证(测试脚本在仓库外)
-
-交叉验证过的内容:`gzip` CLI 各级(0/1/6/9)输出、python zlib 各级输出、
-含 FNAME 头与 stored 块的 18 个文件,全部与 python `gzip` 逐字节一致;
-损坏输入(截断 / 翻位)82 例全部干净报错;ASAN 下无内存错误;压缩输出
-可被系统 `gzip -d` 与 python `gzip` 正常解出。
