@@ -17,6 +17,7 @@
 3. uv pip install tensorflow tensorflow-datasets numpy
 
 4. python mnist.py # 生成MNIST数据
+
                    #train_images.mat：训练集图像（60000×784，float32）
 
                    #train_labels.mat：训练集标签（60000×10，one-hot编码）
@@ -24,4 +25,4 @@
                    #test_images.mat：测试集图像（10000×784，float32）
 
                    #test_labels.mat：测试集标签（10000×10，one-hot编码）
-5. gcc -o mnist main.c -lm -O2 -Wall -Wextra
+6. gcc -o mnist main.c -lm -O2 -Wall -Wextra
