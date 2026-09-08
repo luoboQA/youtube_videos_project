@@ -1,12 +1,8 @@
-
-VULKAN_SDK_PATH = C:\VulkanSDK\1.4.335.0
-
-CC = clang
-CFLAGS = -m64 -std=c99 -Wall -Wextra -pedantic -I$(VULKAN_SDK_PATH)/Include
-DEBUG_FLAGS = -DDEBUG -O0 -g -fsanitize=address
-RELEASE_FLAGS = -DNDEBUG
-
-LFLAGS = -L$(VULKAN_SDK_PATH)/Lib -lvulkan-1.lib
+CC = gcc
+CFLAGS = -std=c99 -Wall -Wextra -pedantic
+DEBUG_FLAGS = -DDEBUG -O0 -g
+RELEASE_FLAGS = -DNDEBUG -O2
+LDFLAGS = -lvulkan
 
 config ?= debug
 
@@ -16,10 +12,18 @@ else
 	CFLAGS += $(RELEASE_FLAGS)
 endif
 
-all: vulkan-compute
+TARGET = vulkan-compute
+SRCS = main.c
 
-vulkan-compute:
-	$(CC) main.c $(CFLAGS) $(LFLAGS) -o vulkan-compute.exe
+all: $(TARGET)
 
-.PHONY: all vulkan-compute
+$(TARGET): $(SRCS)
+	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@
 
+clean:
+	rm -f $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
+
+.PHONY: all clean run
